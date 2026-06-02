@@ -1,0 +1,33 @@
+{
+  "name": "mcp-server-stdio-rancher",
+  "version": "0.1.0",
+  "description": "MCP stdio server for Rancher 1.6 /v2-beta API",
+  "type": "module",
+  "bin": {
+    "mcp-server-stdio-rancher": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "rancher-targets.example.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.7"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

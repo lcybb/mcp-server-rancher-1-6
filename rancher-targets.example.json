@@ -1,0 +1,24 @@
+{
+  "test-erp": {
+    "environment": "test",
+    "projectId": "1a536",
+    "stackId": "1st178",
+    "serviceId": "1s2268",
+    "pipelineUrl": "http://192.168.0.241:9999/r/projects/1a536/pipeline-ui/#/env/1a536/pipelines/pipelines/replace-me?mode=review",
+    "description": "Test ERP"
+  },
+  "test-wms": {
+    "environment": "test",
+    "projectId": "1a200",
+    "description": "Test WMS"
+  },
+  "prod-erp": {
+    "environment": "prod",
+    "protected": true,
+    "projectId": "replace-me",
+    "stackId": "replace-me",
+    "serviceId": "replace-me",
+    "pipelineUrl": "replace-me",
+    "description": "Prod ERP"
+  }
+}
