@@ -17,6 +17,7 @@ import {
   parsePipelineFromGenericObject,
   pipelineGenericObjectPath,
   pipelinePath,
+  pipelineServerPath,
   resolvePipelineRef,
   type RancherGenericObject
 } from "./pipeline.js";
@@ -708,16 +709,10 @@ async function getPipelineResource(
     const selfUrl =
       links && typeof links === "object" && "self" in links && typeof links.self === "string" ? links.self : undefined;
 
-    if (!selfUrl) {
-      return {
-        pipeline: embeddedPipeline,
-        source: pipelineGenericObjectPath(projectId, pipelineId)
-      };
-    }
-
+    const pipelineServerUrl = selfUrl ?? pipelineServerPath(projectId, pipelineId);
     return {
-      pipeline: await client.get<RancherResource>(selfUrl),
-      source: selfUrl
+      pipeline: await client.get<RancherResource>(pipelineServerUrl),
+      source: pipelineServerUrl
     };
   }
 }

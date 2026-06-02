@@ -5,6 +5,7 @@ import {
   parsePipelineFromGenericObject,
   parsePipelineUiUrl,
   pipelineGenericObjectPath,
+  pipelineServerPath,
   replaceImageTag,
   resolvePipelineRef
 } from "../src/pipeline.js";
@@ -99,6 +100,9 @@ describe("pipeline helpers", () => {
   it("builds Rancher genericObject pipeline lookup paths", () => {
     expect(pipelineGenericObjectPath("1a35", "e1d42fea-9dc6-4856-9fb6-a5585eda1af1")).toBe(
       "/v2-beta/projects/1a35/genericobjects?kind=pipeline&key=e1d42fea-9dc6-4856-9fb6-a5585eda1af1"
+    );
+    expect(pipelineServerPath("1a35", "e1d42fea-9dc6-4856-9fb6-a5585eda1af1")).toBe(
+      "/r/projects/1a35/pipeline-server:60080/v1/pipelines/e1d42fea-9dc6-4856-9fb6-a5585eda1af1"
     );
   });
 

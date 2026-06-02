@@ -44,6 +44,10 @@ export function pipelineGenericObjectPath(projectId: string, pipelineId: string)
   return `/v2-beta/projects/${encodeURIComponent(projectId)}/genericobjects?kind=pipeline&key=${encodeURIComponent(pipelineId)}`;
 }
 
+export function pipelineServerPath(projectId: string, pipelineId: string): string {
+  return `/r/projects/${encodeURIComponent(projectId)}/pipeline-server:60080/v1/pipelines/${encodeURIComponent(pipelineId)}`;
+}
+
 export function parsePipelineUiUrl(uiUrl: string): PipelineRef {
   const url = new URL(uiUrl);
   const projectMatch = url.pathname.match(/\/r\/projects\/([^/]+)\/pipeline-ui\/?$/);
