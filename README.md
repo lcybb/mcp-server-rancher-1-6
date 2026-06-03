@@ -97,6 +97,43 @@ npm run build
 
 不要把 Rancher access key / secret key 写入业务项目 README、Skill 文档或仓库配置文件。
 
+## Codex 安装
+
+Codex 使用 `~/.codex/config.toml` 配置本地 MCP Server。全局安装后可添加：
+
+```toml
+[mcp_servers.rancher]
+type = "stdio"
+command = "szt-rancher"
+args = []
+startup_timeout_sec = 30
+
+[mcp_servers.rancher.env]
+RANCHER_URL = "http://your-rancher-host:9999"
+RANCHER_ACCESS_KEY = "your-access-key"
+RANCHER_SECRET_KEY = "your-secret-key"
+RANCHER_REQUEST_TIMEOUT_MS = "30000"
+```
+
+然后安装 Skill：
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
+```
+
+重启 Codex 或新开会话后生效。
+
+也可以在业务项目 README 中写一段“Codex 安装指引”，让 Codex 读取后执行安装命令、补充 MCP 配置和安装 Skill。但 README 只能放 GitLab 仓库地址、Rancher 页面 URL、安装命令等非敏感信息，Rancher access key / secret key 仍由用户在本机 `~/.codex/config.toml` 或本机环境变量中提供。
+
+业务项目中可以这样对 Codex 说：
+
+```text
+根据当前项目 README 的 Codex Rancher MCP 指引安装 Rancher MCP 和 Skill。
+```
+
+如果需要 Codex 修改 `~/.codex/config.toml`，应让 Codex 使用占位符或读取用户已提供的本机环境变量，不要把密钥写进项目文件。
+
 ## README 驱动的项目配置
 
 推荐在每个业务项目的 `README.md` 中维护 Rancher 入口：
@@ -138,7 +175,7 @@ Codex 会通过 Skill 读取 README，解析对应的 Service URL / Pipeline URL
 skills/szt-rancher-deploy/SKILL.md
 ```
 
-安装到 Codex：
+如果是源码仓库安装到 Codex：
 
 ```bash
 mkdir -p ~/.codex/skills
