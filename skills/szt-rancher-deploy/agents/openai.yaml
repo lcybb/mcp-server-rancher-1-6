@@ -1,7 +1,7 @@
 interface:
   display_name: "Rancher README Deploy"
   short_description: "Run Rancher deployments from README URLs"
-  default_prompt: "Use $rancher-readme-deploy to build the current project's test environment and update its Rancher service."
+  default_prompt: "Use $szt-rancher-deploy to build the current project's test environment and update its Rancher service."
 
 dependencies:
   tools:

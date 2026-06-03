@@ -4,25 +4,25 @@
 
 | Skill | 类型 | 用途 |
 | --- | --- | --- |
-| `rancher-readme-deploy` | Rancher 发布 | 读取业务项目 README 中的 Rancher 配置，发现缺失的服务/流水线，确认后调用 Rancher MCP。 |
+| `szt-rancher-deploy` | Rancher 发布 | 读取业务项目 README 中的 Rancher 配置，发现缺失的服务/流水线，确认后调用 Rancher MCP。 |
 
-## rancher-readme-deploy
+## szt-rancher-deploy
 
 入口文件：
 
 ```text
-skills/rancher-readme-deploy/SKILL.md
+skills/szt-rancher-deploy/SKILL.md
 ```
 
 参考流程：
 
-- `skills/rancher-readme-deploy/references/readme-workflow.md`
-- `skills/rancher-readme-deploy/references/build-update-workflow.md`
-- `skills/rancher-readme-deploy/references/production-safety.md`
+- `skills/szt-rancher-deploy/references/readme-workflow.md`
+- `skills/szt-rancher-deploy/references/build-update-workflow.md`
+- `skills/szt-rancher-deploy/references/production-safety.md`
 
 界面元数据：
 
-- `skills/rancher-readme-deploy/agents/openai.yaml`
+- `skills/szt-rancher-deploy/agents/openai.yaml`
 
 Skill 的核心原则：
 
@@ -37,14 +37,14 @@ Skill 的核心原则：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skills/rancher-readme-deploy ~/.codex/skills/
+cp -R skills/szt-rancher-deploy ~/.codex/skills/
 ```
 
 如果 MCP Server 是通过 `npm install -g` 安装的，可以从全局包目录复制：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R "$(npm root -g)/@szt/rancher/skills/rancher-readme-deploy" ~/.codex/skills/
+cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
 ```
 
 重启 Codex 或新开会话，让 Skill 列表刷新。

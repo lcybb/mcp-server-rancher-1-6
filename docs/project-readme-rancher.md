@@ -1,6 +1,6 @@
 # 业务项目 README Rancher 配置规范
 
-每个业务项目可以在自己的 `README.md` 中维护 Rancher 部署目标。Codex 使用 `rancher-readme-deploy` Skill 读取这段配置，再把 URL 传给 MCP tools。
+每个业务项目可以在自己的 `README.md` 中维护 Rancher 部署目标。Codex 使用 `szt-rancher-deploy` Skill 读取这段配置，再把 URL 传给 MCP tools。
 
 ## 推荐格式
 

@@ -1,5 +1,5 @@
 ---
-name: rancher-readme-deploy
+name: szt-rancher-deploy
 description: 当用户要求 Codex 检查、构建、发布、升级、回滚或查看 Rancher 服务/流水线，并且当前项目 README 包含或应该包含 Rancher 的 Service URL / Pipeline URL 配置时使用。
 metadata:
   requires:

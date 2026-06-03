@@ -141,21 +141,21 @@ Codex 会通过 Skill 读取 README，解析对应的 Service URL / Pipeline URL
 内置 Skill 位于：
 
 ```text
-skills/rancher-readme-deploy/SKILL.md
+skills/szt-rancher-deploy/SKILL.md
 ```
 
 安装到 Codex：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R skills/rancher-readme-deploy ~/.codex/skills/
+cp -R skills/szt-rancher-deploy ~/.codex/skills/
 ```
 
 如果是全局安装，可以从 npm 全局包目录复制：
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R "$(npm root -g)/@szt/rancher/skills/rancher-readme-deploy" ~/.codex/skills/
+cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
 ```
 
 重启 Codex 或新开会话后生效。
