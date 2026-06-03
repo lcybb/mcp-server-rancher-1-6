@@ -46,13 +46,7 @@ npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#main
 npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#v0.1.0
 ```
 
-### 方式二：发布到 npm 后安装
-
-```bash
-npm install -g @szt/rancher
-```
-
-### 方式三：本地开发安装
+### 方式二：本地开发安装
 
 ```bash
 git clone git@your-gitlab-host:group/rancher.git

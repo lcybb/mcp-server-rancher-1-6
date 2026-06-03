@@ -35,12 +35,6 @@ npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#main
 npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#v0.1.0
 ```
 
-发布到 npm 后可以使用：
-
-```bash
-npm install -g @szt/rancher
-```
-
 本项目配置了 `prepare` 脚本，因此从 Git 仓库安装时会自动构建 `dist/`，全局命令为：
 
 ```bash
