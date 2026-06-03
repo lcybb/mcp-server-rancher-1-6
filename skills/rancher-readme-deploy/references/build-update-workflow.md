@@ -1,41 +1,41 @@
-# Build And Update Workflow
+# 构建并更新工作流
 
-Use this when the user asks for "构建当前项目测试环境并更新", "build and update", "发布", or similar.
+当用户说“构建当前项目测试环境并更新”“build and update”“发布”等类似请求时使用。
 
-## Tool Usage
+## Tool 使用方式
 
-- Service status: call `rancher_get_service` with `{ "serviceUrl": "..." }`.
-- Service discovery: call `rancher_find_services` with `{ "query": "..." }`, `{ "image": "..." }`, or `{ "projectId": "...", "query": "..." }`.
-- Service upgrade: call `rancher_upgrade_service` with `{ "serviceUrl": "...", "image": "..." }`.
-- Wait service: call `rancher_wait_service` with `{ "serviceUrl": "..." }`.
-- Pipeline metadata: call `rancher_get_pipeline` with `{ "uiUrl": "..." }`.
-- Pipeline history: call `rancher_get_pipeline_activities` with `{ "uiUrl": "...", "limit": 10 }`.
-- Pipeline discovery: call `rancher_find_pipelines` with `{ "query": "..." }` or `{ "projectId": "...", "query": "..." }`.
-- Pipeline image update preview: call `rancher_update_pipeline_image` with `{ "uiUrl": "...", "tag": "...", "dryRun": true }` or `{ "uiUrl": "...", "image": "...", "dryRun": true }`.
-- Pipeline image update apply: after user confirmation, call `rancher_update_pipeline_image` with `dryRun: false`.
-- Run pipeline: call `rancher_run_pipeline` with `{ "uiUrl": "..." }`.
+- 服务状态：调用 `rancher_get_service`，参数 `{ "serviceUrl": "..." }`。
+- 服务发现：调用 `rancher_find_services`，可传 `{ "query": "..." }`、`{ "image": "..." }` 或 `{ "projectId": "...", "query": "..." }`。
+- 服务升级：调用 `rancher_upgrade_service`，参数 `{ "serviceUrl": "...", "image": "..." }`。
+- 等待服务：调用 `rancher_wait_service`，参数 `{ "serviceUrl": "..." }`。
+- 流水线元数据：调用 `rancher_get_pipeline`，参数 `{ "uiUrl": "..." }`。
+- 构建历史：调用 `rancher_get_pipeline_activities`，参数 `{ "uiUrl": "...", "limit": 10 }`。
+- 流水线发现：调用 `rancher_find_pipelines`，可传 `{ "query": "..." }` 或 `{ "projectId": "...", "query": "..." }`。
+- 流水线镜像预览：调用 `rancher_update_pipeline_image`，参数 `{ "uiUrl": "...", "tag": "...", "dryRun": true }` 或 `{ "uiUrl": "...", "image": "...", "dryRun": true }`。
+- 流水线镜像应用：用户确认后，调用 `rancher_update_pipeline_image` 并设置 `dryRun: false`。
+- 运行流水线：调用 `rancher_run_pipeline`，参数 `{ "uiUrl": "..." }`。
 
-## Required Flow
+## 必须遵守的流程
 
-1. Resolve or discover the Pipeline URL.
-2. Resolve or discover the Service URL.
-3. Read pipeline metadata and service status.
-4. If the user supplied a new image tag or full image, run `rancher_update_pipeline_image` with `dryRun: true` and include the proposed `targetImage` changes in the confirmation summary.
-5. Present a confirmation summary:
-   - environment/project name
-   - pipeline name, branch, targetImage, Pipeline URL
-   - service name, current image, health/state, Service URL
-   - proposed pipeline targetImage changes, if any
-   - planned actions
-6. Wait for explicit user confirmation.
-7. If a new image tag or image was supplied, apply `rancher_update_pipeline_image` with `dryRun: false`.
-8. Run the pipeline.
-9. Check build history until the new activity completes, or report the activity ID if still running.
-10. Only after a successful build, determine the image for the service upgrade:
-   - prefer the confirmed full image from `rancher_update_pipeline_image`
-   - otherwise use the pipeline build step `targetImage`
-   - if only a tag was changed, preserve the original image repository and replace only the tag
-11. Upgrade the service using the confirmed Service URL and resolved image.
-12. Wait for the service to stop transitioning, then report final status.
+1. 解析或发现 Pipeline URL。
+2. 解析或发现 Service URL。
+3. 读取流水线元数据和服务状态。
+4. 如果用户提供了新的 image tag 或完整 image，先用 `rancher_update_pipeline_image` 做 `dryRun: true`，并在确认摘要中展示拟修改的 `targetImage`。
+5. 展示确认摘要：
+   - 环境/project 名称
+   - 流水线名称、分支、targetImage、Pipeline URL
+   - 服务名称、当前镜像、健康状态、服务状态、Service URL
+   - 拟修改的 pipeline targetImage，如有
+   - 计划执行的动作
+6. 等待用户明确确认。
+7. 如果用户提供了新的 image tag 或 image，确认后再应用 `rancher_update_pipeline_image`，设置 `dryRun: false`。
+8. 运行流水线。
+9. 查询构建历史，直到新 activity 完成；如果仍在运行，报告 activity ID。
+10. 只有构建成功后，才解析服务升级要使用的镜像：
+   - 优先使用 `rancher_update_pipeline_image` 确认过的完整 image
+   - 否则使用流水线构建步骤中的 `targetImage`
+   - 如果只改了 tag，保留原 image repository，仅替换 tag
+11. 使用确认过的 Service URL 和解析出的 image 升级服务。
+12. 等待服务停止 transitioning，然后报告最终状态。
 
-Do not run a pipeline, update a pipeline image, upgrade a service, finish an upgrade, cancel, or rollback in the same turn that discovered candidates unless the user already gave an unambiguous confirmation for those exact resources.
+在同一轮中刚发现候选资源时，不要立刻运行流水线、修改流水线镜像、升级服务、完成升级、取消或回滚。除非用户已经对这些精确资源给出明确确认。

@@ -1,10 +1,10 @@
-# README Workflow
+# README 工作流
 
-## Source Of Truth
+## 信息来源
 
-Look for a `## Rancher` section in the current project `README.md`.
+优先查找当前项目 `README.md` 中的 `## Rancher` 段落。
 
-Expected shape:
+推荐格式：
 
 ```md
 ## Rancher
@@ -19,7 +19,7 @@ Expected shape:
 - Notes: ...
 ```
 
-Stable field names:
+稳定字段名：
 
 - `Environment`
 - `Protected`
@@ -28,39 +28,39 @@ Stable field names:
 - `Pipeline URL`
 - `Notes`
 
-## Matching
+## 匹配规则
 
-When the user names an environment and app, match case-insensitively against headings such as:
+当用户指定环境和应用时，大小写不敏感地匹配标题，例如：
 
 - `Test / ERP`
 - `Prod / ERP`
 - `测试 / ERP`
 
-If multiple entries match, ask the user which one to use.
+如果多个条目匹配，先让用户选择。
 
-## Missing README Section
+## README 缺少 Rancher 段落
 
-If no README Rancher section exists, try discovery before asking the user for URLs.
+如果没有 Rancher 配置，先尝试发现候选，再让用户确认。
 
-Discovery must cover both pipeline and service when the user asks to "build and update", "构建并更新", "发布", or similar.
+“构建并更新”“构建当前项目测试环境并更新”“发布”等请求，必须同时发现 pipeline 和 service。
 
-Discovery order:
+发现顺序：
 
-1. Infer search terms from the repository directory name, `package.json` name, README title, and user wording.
-2. If the user names an environment such as `test/ERP`, `test/WMS`, `prod/ERP`, or says "测试环境"/"生产环境", call `rancher_list_projects` when needed to map environment names to project IDs.
-3. Call `rancher_find_pipelines` with the strongest search term. Pass `projectId` if known.
-4. For build-and-update requests, use the selected pipeline candidate's `targetImage` and likely app name to call `rancher_find_services`.
-5. If there is one strong pipeline candidate and one strong service candidate, show both and ask the user to confirm the pair before doing anything write-like.
-6. If there are multiple pipeline or service candidates, list the best few and ask the user to choose.
-7. If no pipeline candidates exist, ask the user for the Pipeline URL.
-8. If no service candidates exist for a build-and-update request, ask the user for the Service URL or whether to build only.
-9. After user confirmation, add or update `README.md` with the confirmed Pipeline URL and Service URL.
+1. 从仓库目录名、`package.json` name、README 标题和用户请求推断搜索词。
+2. 如果用户提到 `test/ERP`、`test/WMS`、`prod/ERP`、测试环境或生产环境，必要时调用 `rancher_list_projects` 映射 projectId。
+3. 用最强搜索词调用 `rancher_find_pipelines`。如果已知 projectId，则传入 projectId。
+4. 对构建并更新类请求，使用选中 pipeline 的 `targetImage` 或应用名调用 `rancher_find_services`。
+5. 如果只有一个强 pipeline 候选和一个强 service 候选，展示这两个资源并要求用户确认。
+6. 如果有多个候选，列出最可能的几个，让用户选择。
+7. 如果没有 pipeline 候选，要求用户提供 Pipeline URL。
+8. 如果构建并更新类请求没有 service 候选，要求用户提供 Service URL，或询问是否只构建流水线。
+9. 用户确认后，再新增或更新 `README.md` 的 `## Rancher` 段落。
 
-## README Update Rules
+## README 写回规则
 
-Only edit `README.md` after user confirmation.
+只有在用户确认后才能编辑 `README.md`。
 
-When adding a discovered entry, use:
+新增条目使用：
 
 ```md
 ## Rancher
@@ -75,4 +75,4 @@ When adding a discovered entry, use:
 - Notes:
 ```
 
-Leave unknown fields blank rather than fabricating them.
+未知字段保持空白，不要编造。

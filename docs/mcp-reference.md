@@ -1,28 +1,28 @@
-# MCP Reference
+# MCP 配置与工具参考
 
-## Runtime Configuration
+## 运行时配置
 
-Set these environment variables in the MCP client config:
+在 MCP 客户端配置中设置以下环境变量：
 
-| Variable | Required | Default | Purpose |
+| 变量 | 必填 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| `RANCHER_URL` | No | `http://192.168.0.241:9999` | Rancher base URL |
-| `RANCHER_ACCESS_KEY` | Yes | none | Rancher API key access key |
-| `RANCHER_SECRET_KEY` | Yes | none | Rancher API key secret key |
-| `RANCHER_PROJECT_ID` | No | none | Fallback project ID for ad-hoc ID-only calls |
-| `RANCHER_REQUEST_TIMEOUT_MS` | No | `30000` | HTTP timeout |
-| `RANCHER_TARGETS_FILE` | No | none | Optional JSON target alias file |
-| `RANCHER_TARGETS_JSON` | No | `{}` | Optional JSON target aliases |
-| `RANCHER_ALLOW_PROD_WRITES` | No | `false` | Global switch for protected writes |
-| `RANCHER_PROTECTED_PROJECT_IDS` | No | none | Comma-separated protected project IDs |
+| `RANCHER_URL` | 否 | `http://192.168.0.241:9999` | Rancher 根地址 |
+| `RANCHER_ACCESS_KEY` | 是 | 无 | Rancher API Key 的 access key |
+| `RANCHER_SECRET_KEY` | 是 | 无 | Rancher API Key 的 secret key |
+| `RANCHER_PROJECT_ID` | 否 | 无 | 只传 `serviceId` / `pipelineId` 时的兜底 projectId |
+| `RANCHER_REQUEST_TIMEOUT_MS` | 否 | `30000` | HTTP 请求超时时间 |
+| `RANCHER_TARGETS_FILE` | 否 | 无 | 可选的目标别名 JSON 文件 |
+| `RANCHER_TARGETS_JSON` | 否 | `{}` | 可选的目标别名 JSON 字符串 |
+| `RANCHER_ALLOW_PROD_WRITES` | 否 | `false` | 是否允许生产/受保护环境写操作 |
+| `RANCHER_PROTECTED_PROJECT_IDS` | 否 | 无 | 逗号分隔的受保护 projectId |
 
-Credentials are used only for Basic Auth headers and must not be logged or committed.
+凭证只用于 Basic Auth 请求头，不会写日志，也不应该提交到仓库。
 
-`RANCHER_PROJECT_ID` is only a fallback for manual calls that provide a `serviceId` or `pipelineId` without a URL, target alias, or explicit `projectId`. For multi-project usage, prefer README `Service URL` / `Pipeline URL` entries, tool `serviceUrl` / `uiUrl` inputs, target aliases, or explicit `projectId`.
+`RANCHER_PROJECT_ID` 只是兜底项。多项目使用时，优先使用业务项目 README 里的 `Service URL` / `Pipeline URL`，或在 MCP tool 参数中传 `serviceUrl` / `uiUrl` / `projectId`。
 
-## MCP Client Setup
+## MCP 客户端配置
 
-Use the same stdio command shape in Cursor, Claude Desktop, Codex, and other MCP clients:
+Cursor、Claude Desktop、Codex 等 stdio MCP 客户端都可以使用同样的命令结构：
 
 ```json
 {
@@ -42,25 +42,25 @@ Use the same stdio command shape in Cursor, Claude Desktop, Codex, and other MCP
 }
 ```
 
-For Codex, the server key is typically placed under the MCP servers section of `~/.codex/config.toml`; keep the same command, args, and env values.
+Codex 通常配置在 `~/.codex/config.toml` 的 MCP servers 区域，保持相同的 command、args、env 即可。
 
-## Tools
+## 工具清单
 
-### Project Tools
+### 项目/环境
 
-- `rancher_list_projects`: lists Rancher projects/environments from `/v2-beta/projects`, including names such as `test/ERP` or `prod/WMS`.
+- `rancher_list_projects`：查询 `/v2-beta/projects`，返回 Rancher 环境名称和 projectId，用于识别 Test/ERP、Test/WMS、Prod 等环境。
 
-### Service Tools
+### 应用服务
 
-- `rancher_get_service`: fetch service state, health, scale, image, transition info, and available actions.
-- `rancher_find_services`: search service candidates by project, text query, or image.
-- `rancher_upgrade_service`: upgrade a Rancher service using the discoverable `upgrade` action.
-- `rancher_wait_service`: poll until `transitioning !== "yes"` or timeout.
-- `rancher_finish_service_upgrade`: call `finishupgrade`.
-- `rancher_rollback_service_upgrade`: call `rollback`.
-- `rancher_cancel_service_upgrade`: call `cancelupgrade`.
+- `rancher_get_service`：查询服务状态、健康状态、scale、当前镜像、transition 信息和可用 actions。
+- `rancher_find_services`：按 project、关键词或镜像搜索服务候选。
+- `rancher_upgrade_service`：使用服务资源返回的 `upgrade` action 升级服务。
+- `rancher_wait_service`：轮询服务，直到 `transitioning !== "yes"` 或超时。
+- `rancher_finish_service_upgrade`：调用 `finishupgrade`。
+- `rancher_rollback_service_upgrade`：调用 `rollback`。
+- `rancher_cancel_service_upgrade`：调用 `cancelupgrade`。
 
-Service tools accept either explicit IDs:
+服务工具支持显式 ID：
 
 ```json
 {
@@ -69,7 +69,7 @@ Service tools accept either explicit IDs:
 }
 ```
 
-or a Rancher UI service URL:
+也支持 Rancher UI 服务地址：
 
 ```json
 {
@@ -77,15 +77,15 @@ or a Rancher UI service URL:
 }
 ```
 
-### Pipeline Tools
+### 流水线
 
-- `rancher_get_pipeline`: fetch pipeline metadata and available actions.
-- `rancher_find_pipelines`: search pipeline candidates by project and query.
-- `rancher_get_pipeline_activities`: fetch recent build history.
-- `rancher_update_pipeline_image`: preview or apply build-step `targetImage` changes. Defaults to `dryRun: true`.
-- `rancher_run_pipeline`: run a pipeline using its discoverable `run` action.
+- `rancher_get_pipeline`：查询流水线元数据和可用 actions。
+- `rancher_find_pipelines`：按 project 和关键词搜索流水线候选。
+- `rancher_get_pipeline_activities`：查询最近构建历史。
+- `rancher_update_pipeline_image`：预览或应用构建步骤里的 `targetImage` 修改，默认 `dryRun: true`。
+- `rancher_run_pipeline`：通过 discoverable action 触发流水线。
 
-Pipeline tools accept either explicit IDs:
+流水线工具支持显式 ID：
 
 ```json
 {
@@ -94,7 +94,7 @@ Pipeline tools accept either explicit IDs:
 }
 ```
 
-or a Rancher pipeline UI URL:
+也支持 Rancher pipeline UI 地址：
 
 ```json
 {
@@ -104,29 +104,29 @@ or a Rancher pipeline UI URL:
 
 ## Rancher 1.6 Pipeline Fallback
 
-Some Rancher 1.6 pipeline UI plugin resources are not available at:
+Rancher 1.6 的 pipeline UI plugin 有时不会在下面的 API 暴露完整资源：
 
 ```text
 /v2-beta/projects/{projectId}/pipelines/{pipelineId}
 ```
 
-The server falls back to:
+MCP server 会回退查询：
 
 ```text
 /v2-beta/projects/{projectId}/genericobjects?kind=pipeline&key={pipelineId}
 ```
 
-Then it uses the embedded pipeline server self link. If the embedded `links.self` is missing, it derives:
+然后优先使用资源中返回的 pipeline-server self link。如果 `links.self` 缺失，会按 Rancher 1.6 的路径推导：
 
 ```text
 /r/projects/{projectId}/pipeline-server:60080/v1/pipelines/{pipelineId}
 ```
 
-This avoids false `actions: {}` results when genericObject metadata is incomplete.
+这样可以避免 genericObject 元数据不完整时误判为 `actions: {}`。
 
-## Pipeline Image Updates
+## 修改流水线镜像
 
-Preview changing a build tag:
+先预览：
 
 ```json
 {
@@ -137,7 +137,7 @@ Preview changing a build tag:
 }
 ```
 
-Apply after confirmation:
+确认后再应用：
 
 ```json
 {
@@ -148,17 +148,17 @@ Apply after confirmation:
 }
 ```
 
-For agent-driven use, preview first (`dryRun: true`), show the proposed `targetImage` changes, then apply only after the user confirms the exact pipeline and image.
+Agent 工作流必须先 dry-run，展示拟修改的 `targetImage`，用户确认后才允许 apply。
 
-## Production Safety
+## 生产安全
 
-Production writes are blocked by default. A target is protected when either:
+以下情况视为生产/受保护目标：
 
-- the target has `"protected": true`
-- the target has `"environment": "prod"`
-- the resolved `projectId` is listed in `RANCHER_PROTECTED_PROJECT_IDS`
+- target 配置了 `"protected": true`
+- target 配置了 `"environment": "prod"`
+- projectId 在 `RANCHER_PROTECTED_PROJECT_IDS` 中
 
-Protected read operations are allowed. Protected write operations require:
+生产/受保护环境允许读操作，写操作默认阻止。需要同时满足：
 
 ```json
 {
@@ -166,7 +166,7 @@ Protected read operations are allowed. Protected write operations require:
 }
 ```
 
-and a precise confirmation token:
+并在 tool 参数中传入精确确认 token：
 
 ```json
 {

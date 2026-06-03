@@ -1,8 +1,8 @@
-# Project README Rancher Section
+# 业务项目 README Rancher 配置规范
 
-Each application can describe its Rancher deployment targets in its own `README.md`. Codex uses the bundled skill to read this section and call MCP tools with URLs.
+每个业务项目可以在自己的 `README.md` 中维护 Rancher 部署目标。Codex 使用 `rancher-readme-deploy` Skill 读取这段配置，再把 URL 传给 MCP tools。
 
-## Recommended Section
+## 推荐格式
 
 ```md
 ## Rancher
@@ -26,9 +26,9 @@ Each application can describe its Rancher deployment targets in its own `README.
 - Notes:
 ```
 
-## Field Names
+## 字段约定
 
-Keep these names stable so the skill can parse the section reliably:
+保持字段名稳定，便于 Skill 解析：
 
 - `Environment`
 - `Protected`
@@ -37,15 +37,54 @@ Keep these names stable so the skill can parse the section reliably:
 - `Pipeline URL`
 - `Notes`
 
-## If The Section Is Missing
+字段值可以是中文说明，但字段名建议保持英文，减少解析歧义。
 
-The skill should:
+## 多环境多应用
 
-1. infer a search term from the repository name, `package.json`, README title, and user request
-2. call `rancher_list_projects` if it needs to map names such as `test/ERP` to project IDs
-3. call `rancher_find_pipelines`
-4. call `rancher_find_services` for build-and-update workflows
-5. show candidates and wait for user confirmation
-6. update `README.md` only after confirmation
+一个项目可以维护多个 Rancher 条目，例如：
 
-Unknown fields should remain blank rather than fabricated.
+```md
+## Rancher
+
+### Test / ERP
+
+- Environment: test
+- Protected: false
+- Environment URL:
+- Service URL:
+- Pipeline URL:
+- Notes:
+
+### Test / WMS
+
+- Environment: test
+- Protected: false
+- Environment URL:
+- Service URL:
+- Pipeline URL:
+- Notes:
+
+### Prod / ERP
+
+- Environment: prod
+- Protected: true
+- Environment URL:
+- Service URL:
+- Pipeline URL:
+- Notes: 生产环境写操作需要二次确认。
+```
+
+当用户说“构建当前项目测试环境并更新”时，Skill 会优先匹配 `Test` 条目；如果存在多个测试应用，会要求用户选择。
+
+## 缺少 Rancher 配置时
+
+如果当前项目没有 `## Rancher` 段落，Skill 应该先尝试发现候选，而不是立刻要求用户手动提供 URL：
+
+1. 从仓库目录名、`package.json` name、README 标题和用户请求推断搜索词。
+2. 如用户提到 `test/ERP`、`test/WMS`、生产环境等，必要时调用 `rancher_list_projects` 映射 projectId。
+3. 调用 `rancher_find_pipelines` 搜索流水线候选。
+4. 对“构建并更新”类请求，同时调用 `rancher_find_services` 搜索服务候选。
+5. 展示候选 pipeline/service，并等待用户确认。
+6. 用户确认后，再把确认过的 URL 写回 `README.md`。
+
+未知字段保持空白，不要编造。
