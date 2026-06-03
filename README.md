@@ -1,4 +1,4 @@
-# mcp-server-rancher-1-6
+# @szt/rancher
 
 Rancher 1.6 MCP stdio 服务 — 让人类和 AI Agent 都能通过 Rancher 1.6 `/v2-beta` API 操作服务与流水线。
 
@@ -30,33 +30,33 @@ Rancher 1.6 pipeline UI plugin 的 `genericobjects -> pipeline-server` fallback 
 ### 方式一：从内网 GitLab 仓库全局安装
 
 ```bash
-npm install -g git+ssh://git@your-gitlab-host/group/mcp-server-rancher-1-6.git
+npm install -g git+ssh://git@your-gitlab-host/group/rancher.git
 ```
 
 安装后可直接执行：
 
 ```bash
-mcp-server-stdio-rancher
+rancher-mcp
 ```
 
 也可以指定分支、tag 或 commit：
 
 ```bash
-npm install -g git+ssh://git@your-gitlab-host/group/mcp-server-rancher-1-6.git#main
-npm install -g git+ssh://git@your-gitlab-host/group/mcp-server-rancher-1-6.git#v0.1.0
+npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#main
+npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#v0.1.0
 ```
 
 ### 方式二：发布到 npm 后安装
 
 ```bash
-npm install -g mcp-server-stdio-rancher
+npm install -g @szt/rancher
 ```
 
 ### 方式三：本地开发安装
 
 ```bash
-git clone git@your-gitlab-host:group/mcp-server-rancher-1-6.git
-cd mcp-server-rancher-1-6
+git clone git@your-gitlab-host:group/rancher.git
+cd rancher
 npm install
 npm run build
 ```
@@ -70,7 +70,7 @@ npm run build
   "mcpServers": {
     "rancher": {
       "type": "stdio",
-      "command": "mcp-server-stdio-rancher",
+      "command": "rancher-mcp",
       "args": [],
       "env": {
         "RANCHER_URL": "http://your-rancher-host:9999",
@@ -90,7 +90,7 @@ npm run build
     "rancher": {
       "type": "stdio",
       "command": "node",
-      "args": ["/absolute/path/to/mcp-server-rancher-1-6/dist/index.js"],
+      "args": ["/absolute/path/to/rancher/dist/index.js"],
       "env": {
         "RANCHER_URL": "http://your-rancher-host:9999",
         "RANCHER_ACCESS_KEY": "your-access-key",
@@ -155,7 +155,7 @@ cp -R skills/rancher-readme-deploy ~/.codex/skills/
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R "$(npm root -g)/mcp-server-stdio-rancher/skills/rancher-readme-deploy" ~/.codex/skills/
+cp -R "$(npm root -g)/@szt/rancher/skills/rancher-readme-deploy" ~/.codex/skills/
 ```
 
 重启 Codex 或新开会话后生效。

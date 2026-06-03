@@ -44,7 +44,7 @@ cp -R skills/rancher-readme-deploy ~/.codex/skills/
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R "$(npm root -g)/mcp-server-stdio-rancher/skills/rancher-readme-deploy" ~/.codex/skills/
+cp -R "$(npm root -g)/@szt/rancher/skills/rancher-readme-deploy" ~/.codex/skills/
 ```
 
 重启 Codex 或新开会话，让 Skill 列表刷新。

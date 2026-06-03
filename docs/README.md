@@ -1,6 +1,6 @@
 # 文档
 
-这里存放 `mcp-server-rancher-1-6` 的长期文档。根目录 `README.md` 保持为项目入口，详细配置、工具说明和 Agent 工作流放在 `docs/` 与 `skills/` 中。
+这里存放 `@szt/rancher` 的长期文档。根目录 `README.md` 保持为项目入口，详细配置、工具说明和 Agent 工作流放在 `docs/` 与 `skills/` 中。
 
 ## 从这里开始
 
