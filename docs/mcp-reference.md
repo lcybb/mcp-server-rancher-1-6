@@ -27,14 +27,14 @@
 项目地址：`http://sztgitlab/buboyun/rancher-mcp`
 
 ```bash
-npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git
+npm install -g git+http://sztgitlab/buboyun/rancher-mcp.git
 ```
 
 也可以固定分支、tag 或 commit：
 
 ```bash
-npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#main
-npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#v0.1.0
+npm install -g git+http://sztgitlab/buboyun/rancher-mcp.git#main
+npm install -g git+http://sztgitlab/buboyun/rancher-mcp.git#v0.1.0
 ```
 
 本项目配置了 `prepare` 脚本，因此从 Git 仓库安装时会自动构建 `dist/`，全局命令为：

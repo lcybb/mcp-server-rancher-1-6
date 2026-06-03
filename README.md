@@ -32,7 +32,7 @@ Rancher 1.6 pipeline UI plugin 的 `genericobjects -> pipeline-server` fallback 
 项目地址：`http://sztgitlab/buboyun/rancher-mcp`
 
 ```bash
-npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git
+npm install -g git+http://sztgitlab/buboyun/rancher-mcp.git
 ```
 
 安装后可直接执行：
@@ -44,14 +44,14 @@ szt-rancher
 也可以指定分支、tag 或 commit：
 
 ```bash
-npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#main
-npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#v0.1.0
+npm install -g git+http://sztgitlab/buboyun/rancher-mcp.git#main
+npm install -g git+http://sztgitlab/buboyun/rancher-mcp.git#v0.1.0
 ```
 
 ### 方式二：本地开发安装
 
 ```bash
-git clone git@sztgitlab:buboyun/rancher-mcp.git
+git clone http://sztgitlab/buboyun/rancher-mcp.git
 cd rancher-mcp
 npm install
 npm run build

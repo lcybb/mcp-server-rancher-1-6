@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@sztgitlab/buboyun/rancher-mcp.git"
+    "url": "git+http://sztgitlab/buboyun/rancher-mcp.git"
   },
   "bin": {
     "szt-rancher": "dist/index.js"
