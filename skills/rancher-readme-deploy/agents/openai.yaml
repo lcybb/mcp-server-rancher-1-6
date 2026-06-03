@@ -1,0 +1,13 @@
+interface:
+  display_name: "Rancher README Deploy"
+  short_description: "Run Rancher deployments from README URLs"
+  default_prompt: "Use $rancher-readme-deploy to build the current project's test environment and update its Rancher service."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "rancher"
+      description: "Rancher 1.6 stdio MCP server"
+
+policy:
+  allow_implicit_invocation: true
