@@ -27,14 +27,62 @@ Rancher 1.6 pipeline UI plugin 的 `genericobjects -> pipeline-server` fallback 
 - Rancher 1.6 API Key
 - 一个支持 stdio MCP 的客户端，例如 Codex、Cursor、Claude Desktop
 
-### 安装与构建
+### 方式一：从内网 GitLab 仓库全局安装
 
 ```bash
+npm install -g git+ssh://git@your-gitlab-host/group/mcp-server-rancher-1-6.git
+```
+
+安装后可直接执行：
+
+```bash
+mcp-server-stdio-rancher
+```
+
+也可以指定分支、tag 或 commit：
+
+```bash
+npm install -g git+ssh://git@your-gitlab-host/group/mcp-server-rancher-1-6.git#main
+npm install -g git+ssh://git@your-gitlab-host/group/mcp-server-rancher-1-6.git#v0.1.0
+```
+
+### 方式二：发布到 npm 后安装
+
+```bash
+npm install -g mcp-server-stdio-rancher
+```
+
+### 方式三：本地开发安装
+
+```bash
+git clone git@your-gitlab-host:group/mcp-server-rancher-1-6.git
+cd mcp-server-rancher-1-6
 npm install
 npm run build
 ```
 
-### MCP 客户端配置
+## MCP 客户端配置
+
+全局安装后，MCP 客户端可以直接使用命令名：
+
+```json
+{
+  "mcpServers": {
+    "rancher": {
+      "type": "stdio",
+      "command": "mcp-server-stdio-rancher",
+      "args": [],
+      "env": {
+        "RANCHER_URL": "http://your-rancher-host:9999",
+        "RANCHER_ACCESS_KEY": "your-access-key",
+        "RANCHER_SECRET_KEY": "your-secret-key"
+      }
+    }
+  }
+}
+```
+
+本地开发时也可以使用 `node dist/index.js`：
 
 ```json
 {
@@ -101,6 +149,13 @@ skills/rancher-readme-deploy/SKILL.md
 ```bash
 mkdir -p ~/.codex/skills
 cp -R skills/rancher-readme-deploy ~/.codex/skills/
+```
+
+如果是全局安装，可以从 npm 全局包目录复制：
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R "$(npm root -g)/mcp-server-stdio-rancher/skills/rancher-readme-deploy" ~/.codex/skills/
 ```
 
 重启 Codex 或新开会话后生效。

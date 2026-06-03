@@ -33,11 +33,18 @@ Skill 的核心原则：
 
 ## 安装 Skill
 
-复制 Skill 到 Codex skills 目录：
+如果当前仓库已 clone 到本地，复制 Skill 到 Codex skills 目录：
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R skills/rancher-readme-deploy ~/.codex/skills/
+```
+
+如果 MCP Server 是通过 `npm install -g` 安装的，可以从全局包目录复制：
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R "$(npm root -g)/mcp-server-stdio-rancher/skills/rancher-readme-deploy" ~/.codex/skills/
 ```
 
 重启 Codex 或新开会话，让 Skill 列表刷新。
