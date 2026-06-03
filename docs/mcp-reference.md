@@ -24,15 +24,17 @@
 
 从内网 GitLab 仓库全局安装：
 
+项目地址：`http://sztgitlab/buboyun/rancher-mcp`
+
 ```bash
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git
+npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git
 ```
 
 也可以固定分支、tag 或 commit：
 
 ```bash
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#main
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#v0.1.0
+npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#main
+npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#v0.1.0
 ```
 
 本项目配置了 `prepare` 脚本，因此从 Git 仓库安装时会自动构建 `dist/`，全局命令为：
@@ -89,7 +91,7 @@ RANCHER_REQUEST_TIMEOUT_MS = "30000"
     "rancher": {
       "type": "stdio",
       "command": "node",
-      "args": ["/absolute/path/to/rancher/dist/index.js"],
+      "args": ["/absolute/path/to/rancher-mcp/dist/index.js"],
       "env": {
         "RANCHER_URL": "http://your-rancher-host:9999",
         "RANCHER_ACCESS_KEY": "your-access-key",
@@ -107,7 +109,7 @@ RANCHER_REQUEST_TIMEOUT_MS = "30000"
 [mcp_servers.rancher]
 type = "stdio"
 command = "node"
-args = ["/absolute/path/to/rancher/dist/index.js"]
+args = ["/absolute/path/to/rancher-mcp/dist/index.js"]
 startup_timeout_sec = 30
 
 [mcp_servers.rancher.env]
@@ -122,7 +124,7 @@ RANCHER_REQUEST_TIMEOUT_MS = "30000"
 一般只需要把内网 GitLab 仓库地址发给 Codex：
 
 ```text
-请从 git+ssh://git@your-gitlab-host/group/rancher.git 安装 Rancher MCP，配置到 Codex，并安装对应 Skill。Rancher 密钥我会在本机配置中提供。
+请从 http://sztgitlab/buboyun/rancher-mcp 安装 Rancher MCP，配置到 Codex，并安装对应 Skill。Rancher 密钥我会在本机配置中提供。
 ```
 
 Codex 可以读取本仓库 README，然后执行 `npm install -g`、复制 Skill、给出或写入 `~/.codex/config.toml` 片段。涉及 Rancher access key / secret key 时必须由用户在本机提供，不能写入项目 README。
@@ -132,7 +134,7 @@ Codex 可以读取本仓库 README，然后执行 `npm install -g`、复制 Skil
 ```md
 ## Codex Rancher MCP
 
-- MCP Repository: git+ssh://git@your-gitlab-host/group/rancher.git
+- MCP Repository: http://sztgitlab/buboyun/rancher-mcp
 ```
 
 ## 工具清单

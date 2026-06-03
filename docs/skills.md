@@ -54,7 +54,7 @@ cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
 一般把内网 GitLab 仓库地址发给 Codex 即可：
 
 ```text
-请从 git+ssh://git@your-gitlab-host/group/rancher.git 安装 Rancher MCP，配置到 Codex，并安装对应 Skill。Rancher 密钥我会在本机配置中提供。
+请从 http://sztgitlab/buboyun/rancher-mcp 安装 Rancher MCP，配置到 Codex，并安装对应 Skill。Rancher 密钥我会在本机配置中提供。
 ```
 
 Codex 会根据本仓库 README 执行全局安装、复制 `szt-rancher-deploy` Skill，并协助配置 `~/.codex/config.toml`。不要把 Rancher access key / secret key 放进业务项目 README。

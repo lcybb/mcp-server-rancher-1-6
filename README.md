@@ -29,8 +29,10 @@ Rancher 1.6 pipeline UI plugin 的 `genericobjects -> pipeline-server` fallback 
 
 ### 方式一：从内网 GitLab 仓库全局安装
 
+项目地址：`http://sztgitlab/buboyun/rancher-mcp`
+
 ```bash
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git
+npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git
 ```
 
 安装后可直接执行：
@@ -42,15 +44,15 @@ szt-rancher
 也可以指定分支、tag 或 commit：
 
 ```bash
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#main
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git#v0.1.0
+npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#main
+npm install -g git+ssh://git@sztgitlab/buboyun/rancher-mcp.git#v0.1.0
 ```
 
 ### 方式二：本地开发安装
 
 ```bash
-git clone git@your-gitlab-host:group/rancher.git
-cd rancher
+git clone git@sztgitlab:buboyun/rancher-mcp.git
+cd rancher-mcp
 npm install
 npm run build
 ```
@@ -84,7 +86,7 @@ npm run build
     "rancher": {
       "type": "stdio",
       "command": "node",
-      "args": ["/absolute/path/to/rancher/dist/index.js"],
+      "args": ["/absolute/path/to/rancher-mcp/dist/index.js"],
       "env": {
         "RANCHER_URL": "http://your-rancher-host:9999",
         "RANCHER_ACCESS_KEY": "your-access-key",

@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "MCP stdio server for Rancher 1.6 /v2-beta API",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@sztgitlab/buboyun/rancher-mcp.git"
+  },
   "bin": {
     "szt-rancher": "dist/index.js"
   },
