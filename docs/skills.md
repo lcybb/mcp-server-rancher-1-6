@@ -51,27 +51,10 @@ cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
 
 ## 让 Codex 自行安装
 
-业务项目可以在 README 中提供非敏感安装指引，让 Codex 根据项目说明执行安装：
-
-````md
-## Codex Rancher MCP
-
-- MCP Git Repository: git+ssh://git@your-gitlab-host/group/rancher.git
-- MCP Command: szt-rancher
-- Skill: szt-rancher-deploy
-- Install:
-  ```bash
-  npm install -g git+ssh://git@your-gitlab-host/group/rancher.git
-  mkdir -p ~/.codex/skills
-  cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
-  ```
-- Codex config: add `[mcp_servers.rancher]` to `~/.codex/config.toml`
-````
-
-不要在这段 README 中放 Rancher access key / secret key。Codex 可以安装包和 Skill，但密钥仍应由用户在本机配置。
-
-推荐触发语：
+一般把内网 GitLab 仓库地址发给 Codex 即可：
 
 ```text
-根据当前项目 README 的 Codex Rancher MCP 指引安装 Rancher MCP 和 Skill。
+请从 git+ssh://git@your-gitlab-host/group/rancher.git 安装 Rancher MCP，配置到 Codex，并安装对应 Skill。Rancher 密钥我会在本机配置中提供。
 ```
+
+Codex 会根据本仓库 README 执行全局安装、复制 `szt-rancher-deploy` Skill，并协助配置 `~/.codex/config.toml`。不要把 Rancher access key / secret key 放进业务项目 README。
