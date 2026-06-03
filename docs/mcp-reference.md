@@ -44,7 +44,7 @@ npm install -g @szt/rancher
 本项目配置了 `prepare` 脚本，因此从 Git 仓库安装时会自动构建 `dist/`，全局命令为：
 
 ```bash
-rancher-mcp
+szt-rancher
 ```
 
 ## MCP 客户端配置
@@ -56,7 +56,7 @@ rancher-mcp
   "mcpServers": {
     "rancher": {
       "type": "stdio",
-      "command": "rancher-mcp",
+      "command": "szt-rancher",
       "args": [],
       "env": {
         "RANCHER_URL": "http://your-rancher-host:9999",

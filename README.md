@@ -36,7 +36,7 @@ npm install -g git+ssh://git@your-gitlab-host/group/rancher.git
 安装后可直接执行：
 
 ```bash
-rancher-mcp
+szt-rancher
 ```
 
 也可以指定分支、tag 或 commit：
@@ -70,7 +70,7 @@ npm run build
   "mcpServers": {
     "rancher": {
       "type": "stdio",
-      "command": "rancher-mcp",
+      "command": "szt-rancher",
       "args": [],
       "env": {
         "RANCHER_URL": "http://your-rancher-host:9999",

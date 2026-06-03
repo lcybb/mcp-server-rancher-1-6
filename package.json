@@ -4,7 +4,7 @@
   "description": "MCP stdio server for Rancher 1.6 /v2-beta API",
   "type": "module",
   "bin": {
-    "rancher-mcp": "dist/index.js"
+    "szt-rancher": "dist/index.js"
   },
   "files": [
     "dist",
