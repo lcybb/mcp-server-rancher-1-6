@@ -1,6 +1,6 @@
 # @szt/rancher
 
-Rancher 1.6 MCP stdio 服务 — 让人类和 AI Agent 都能通过 Rancher 1.6 `/v2-beta` API 操作服务与流水线。
+用于通过 Rancher 1.6 `/v2-beta` API 管理服务升级与流水线构建的 MCP stdio Server。
 
 本项目分为两层：
 

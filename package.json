@@ -1,7 +1,7 @@
 {
   "name": "@szt/rancher",
   "version": "0.1.0",
-  "description": "MCP stdio server for Rancher 1.6 /v2-beta API",
+  "description": "MCP stdio server for Rancher 1.6 service upgrades and pipeline builds",
   "type": "module",
   "repository": {
     "type": "git",
