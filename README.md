@@ -97,50 +97,6 @@ npm run build
 
 不要把 Rancher access key / secret key 写入业务项目 README、Skill 文档或仓库配置文件。
 
-## Codex 安装
-
-最简单的方式：把内网 GitLab 仓库地址发给 Codex，让 Codex 按本项目 README 安装。
-
-```text
-请从 git+ssh://git@your-gitlab-host/group/rancher.git 安装 Rancher MCP，配置到 Codex，并安装对应 Skill。Rancher 密钥我会在本机配置中提供。
-```
-
-Codex 通常会执行：
-
-```bash
-npm install -g git+ssh://git@your-gitlab-host/group/rancher.git
-mkdir -p ~/.codex/skills
-cp -R "$(npm root -g)/@szt/rancher/skills/szt-rancher-deploy" ~/.codex/skills/
-```
-
-然后在 `~/.codex/config.toml` 中添加 MCP Server：
-
-```toml
-[mcp_servers.rancher]
-type = "stdio"
-command = "szt-rancher"
-args = []
-startup_timeout_sec = 30
-
-[mcp_servers.rancher.env]
-RANCHER_URL = "http://your-rancher-host:9999"
-RANCHER_ACCESS_KEY = "your-access-key"
-RANCHER_SECRET_KEY = "your-secret-key"
-RANCHER_REQUEST_TIMEOUT_MS = "30000"
-```
-
-重启 Codex 或新开会话后生效。
-
-业务项目 README 里可以只放一条简短指引：
-
-```md
-## Codex Rancher MCP
-
-- MCP Repository: git+ssh://git@your-gitlab-host/group/rancher.git
-```
-
-不要把 Rancher access key / secret key 写进业务项目 README。密钥只放用户本机 `~/.codex/config.toml` 或本机环境变量。
-
 ## README 驱动的项目配置
 
 推荐在每个业务项目的 `README.md` 中维护 Rancher 入口：
