@@ -37,7 +37,7 @@ const confirmInput = {
 export function createServer(config: RancherConfig): McpServer {
   const client = new RancherClient(config);
   const server = new McpServer({
-    name: "mcp-server-stdio-rancher",
+    name: "szt-rancher",
     version: "0.1.0"
   });
 
